@@ -156,8 +156,8 @@ async function login(username, password) {
 //     try {
 //         // const inventory = await getInventory("User1");
 //         // const market = await getMarket("User1");
-//         // console.log(transferAsset("ASSET001", "User1", "User2"));
-//         console.log(await login("User1", "Pass@1234"));
+//        console.log(transferAsset("ASSET011", "User2", "User3"));
+//         // console.log(await login("User1", "Pass@1234"));
 //     } catch (error) {
 //         console.error(error);
 //     }

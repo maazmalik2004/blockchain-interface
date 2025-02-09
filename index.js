@@ -109,36 +109,20 @@ app.get('/getMarket', async(req, res) => {
     }
 });
 
-app.get('/getMarket', async(req, res) => {
-    try{
-        const body = request.body
-
-        console.log(market)
-        
-        res.json({
-            success: true,
-            message: "get successful",
-            data: market
-        });
-    }catch(error){
-        res.status(400).json({
-            success: false,
-            message:"could not get market"
-        })
-    }
-});
-
 app.post('/transferAsset', async(req, res) => {
     try{
-        const body = request.body
+        const body = req.body
 
-        await transferAsset(body.assetId, asset.seller, asset.buyer)
+        console.log(body)
+
+        await transferAsset(body.assetId, body.seller, body.buyer)
 
         res.json({
             success: true,
             message: "transfer successful",
         });
     }catch(error){
+        console.log(error)
         res.status(400).json({
             success: false,
             message:"could not transfer asset"
