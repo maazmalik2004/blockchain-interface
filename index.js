@@ -11,6 +11,7 @@ app.use(express.json());
 // import {get, append, validate} from "./blockchain.js"
 import appendTransaction from './scripts/appendTransaction.js';
 import  getTransactions from './scripts/getTransactions.js';
+import {getInventory, getMarket, transferAsset} from "./assetManagement.js"
 
 // Routes
 app.get('/', (req, res) => {
@@ -20,6 +21,7 @@ app.get('/', (req, res) => {
     });
 });
 
+// blockchain related
 app.get('/getData', async(req, res) => {
     try{
         const transactions = await getTransactions()
@@ -65,6 +67,84 @@ app.post("/appendData", async (req, res) => {
         })
     }
 })
+
+// rest related
+app.get('/getInventory/:username', async(req, res) => {
+    try{
+        const username = req.params.username
+        const inventory = await getInventory(username)
+
+        console.log(inventory)
+        
+        res.json({
+            success: true,
+            message: "get successful",
+            data: inventory
+        });
+    }catch(error){
+        res.status(400).json({
+            success: false,
+            message:"could not get inventory"
+        })
+    }
+});
+
+// rest related
+app.get('/getMarket', async(req, res) => {
+    try{
+        const market = await getMarket()
+
+        console.log(market)
+        
+        res.json({
+            success: true,
+            message: "get successful",
+            data: market
+        });
+    }catch(error){
+        res.status(400).json({
+            success: false,
+            message:"could not get market"
+        })
+    }
+});
+
+app.get('/getMarket', async(req, res) => {
+    try{
+        const body = request.body
+
+        console.log(market)
+        
+        res.json({
+            success: true,
+            message: "get successful",
+            data: market
+        });
+    }catch(error){
+        res.status(400).json({
+            success: false,
+            message:"could not get market"
+        })
+    }
+});
+
+app.post('/transferAsset', async(req, res) => {
+    try{
+        const body = request.body
+
+        await transferAsset(body.assetId, asset.seller, asset.buyer)
+
+        res.json({
+            success: true,
+            message: "transfer successful",
+        });
+    }catch(error){
+        res.status(400).json({
+            success: false,
+            message:"could not transfer asset"
+        })
+    }
+});
 
 // Start server
 app.listen(PORT, () => {
